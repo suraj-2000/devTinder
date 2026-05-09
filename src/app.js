@@ -11,6 +11,7 @@ const {adminAuth} = require("./middlewares/auth");
 app.use("/admin", adminAuth);
 
 app.get("/admin/getData",(req,res)=> {
+    throw new Error("error occured");
     res.send("Data is Sent!");
 
 });
@@ -23,6 +24,13 @@ app.get("/admin/getData",(req,res)=> {
 // });
 
 
+//wildcard error handling
+app.use("/",(err,req,res,next)=> {
+    if(err) {
+        res.status(500).send("Something went wrong!");
+    }
+
+});
 
 app.listen(2511,()=>{
     console.log("Server is listening on port 2511.");
