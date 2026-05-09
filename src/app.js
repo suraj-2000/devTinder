@@ -7,16 +7,13 @@ const app = express(); //Calls the Express function,Creates your server object (
     
 // });
 
-app.use("/user",
-    (req,res,next)=> {
-    console.log("Hello User")
-    next();
-    res.send("response1");
-},(req,res) => {
-    console.log("Hello User2");
-    res.send("response2");
-}
-);
+const {adminAuth} = require("./middlewares/auth");
+app.use("/admin", adminAuth);
+
+app.get("/admin/getData",(req,res)=> {
+    res.send("Data is Sent!");
+
+});
 
 
 
