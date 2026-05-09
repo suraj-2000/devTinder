@@ -7,23 +7,18 @@ const app = express(); //Calls the Express function,Creates your server object (
     
 // });
 
-app.use("/hello",(req,res)=> {
-    res.send("Hello Hello Hello");
-});
+app.use("/user",
+    (req,res,next)=> {
+    console.log("Hello User")
+    next();
+    res.send("response1");
+},(req,res) => {
+    console.log("Hello User2");
+    res.send("response2");
+}
+);
 
-app.get("/user",(req,res)=>{
-    res.send({"name":"Suraj Singh",
-        "age": "25"
-    });
-});
 
-app.post("/user",(req,res)=>{
-    res.send("user successfully saved!")
-})
-
-app.delete("/user",(req,res)=>{
-    res.send("user deleted successfully!")
-})
 
 // app.use("/test",(req,res)=>{
 //     res.send("Test Test Test")
