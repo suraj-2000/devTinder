@@ -4,6 +4,30 @@ const {connectDB} = require("./config/database.js");
 const User = require("./models/user.js");
 
 app.use(express.json());
+
+app.get("/user", async (req,res)=> {
+    const userEmail = req.body.emailId;
+    try {
+        const user = await User.find({emailId: userEmail});
+        console.log(user);
+        res.send(user);
+    } catch(err) {
+        console.error("User not found");
+    }
+    
+});
+
+app.get("/feed", async (req,res)=> {
+    try {
+        const user = await User.find({});
+        console.log(user);
+        res.send(user);
+    } catch(err) {
+        console.error("User not found");
+    }
+    
+});
+
 app.post("/signup", async (req, res)=> {
     
     // const user = new User({
