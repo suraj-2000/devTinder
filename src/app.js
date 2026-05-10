@@ -28,6 +28,19 @@ app.get("/feed", async (req,res)=> {
     
 });
 
+app.delete("/user",async (req,res) => {
+    const userId = req.body.userId;
+    try {
+        await User.findByIdAndDelete(userId);
+        res.send("user deleted succesfully!");
+
+
+    } catch(err) {
+        res.status(500).send("User not found!");
+    }
+
+})
+
 app.post("/signup", async (req, res)=> {
     
     // const user = new User({
@@ -46,10 +59,25 @@ app.post("/signup", async (req, res)=> {
         await user.save();
         res.send("User saved successfully!");
     } catch(err) {
-        res.status(400).send("Error while saving the user!");
+        res.status(400).send(err.message);
 
     }
 
+});
+
+app.patch("/user", async (req, res) => {
+    const id = req.body.userId;
+    try {
+        const data = req.body;
+        await User.findByIdAndUpdate(id, data,{
+            runValidators:true
+        });
+        res.send("User updated successfully.");
+
+    } catch(err) {
+        res.status(500).send("Error while updating the user");
+    }
+   
 });
 
 connectDB().then(()=> {
