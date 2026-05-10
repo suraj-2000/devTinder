@@ -3,16 +3,20 @@ const app = express(); //Calls the Express function,Creates your server object (
 const {connectDB} = require("./config/database.js");
 const User = require("./models/user.js");
 
-
+app.use(express.json());
 app.post("/signup", async (req, res)=> {
-    const user = new User({
-        firstName: "Suraj",
-        lastName: "Singh",
-        age: 25,
-        emailId: "surajsingh@gmail.com",
-        gender: "Male",
-        password: "Password"
-    });
+    
+    // const user = new User({
+    //     firstName: "Sangam",
+    //     lastName: "Singh",
+    //     age: 25,
+    //     emailId: "surajsangam@gmail.com",
+    //     gender: "Female",
+    //     password: "Password"
+    // });
+
+    const user = new User(req.body);
+    console.log(req.body);
 
     try {
         await user.save();
